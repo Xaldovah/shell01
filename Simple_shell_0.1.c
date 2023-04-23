@@ -25,7 +25,7 @@ int main(void)
 		fflush(stdout);
 		if (fgets(input, MAX_INPUT, stdin) == NULL)
 		{
-			printf("\n");
+			write(STDOUT_FILENO, "\n", 1);
 			exit(EXIT_FAILURE);
 		}
 
