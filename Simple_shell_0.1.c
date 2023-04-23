@@ -22,7 +22,7 @@ int main(void)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, PROMPT, 1);
+		write(STDOUT_FILENO, PROMPT, 7);
 		fflush(stdout);
 		if (getline(&input, &input_size, stdin) == -1)
 		{
