@@ -16,21 +16,21 @@
 int main(void)
 {
 	pid_t pid;
-	char input[MAX_INPUT];
+	char *input = NULL;
+	size_t input_size = 0;
 	int status;
 
 	while (1)
 	{
 		printf(PROMPT);
 		fflush(stdout);
-		if (fgets(input, MAX_INPUT, stdin) == NULL)
+		if (getline(&input, &input_size, stdin) == -1)
 		{
 			write(STDOUT_FILENO, "\n", 1);
+			free(input);
 			exit(EXIT_FAILURE);
 		}
-
 		input[strcspn(input, "\n")] = '\0';
-
 		pid = fork();
 		if (pid < 0)
 		{
@@ -53,7 +53,7 @@ int main(void)
 			wait(&status);
 		}
 	}
-
+	free(input);
 	exit(EXIT_SUCCESS);
 }
 
