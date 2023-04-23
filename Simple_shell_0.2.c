@@ -22,7 +22,7 @@ int main(void)
 
 	while(1)
 	{
-		write(STDOUT_FILENO, PROMPT, 7);
+		write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
 		
 		if (getline(&cmd, &n, stdin) == -1)
 		{
@@ -38,7 +38,7 @@ int main(void)
 		}
 		printf("%d\n", argc);
 
-		argv = malloc(sizeof(char *) * argc);
+		argv = malloc(sizeof(char *) * (argc + 1));
 
 		token = strtok(cmd_cpy, delim);
 		while (token)
@@ -52,7 +52,7 @@ int main(void)
 		pid = fork();
 		if (pid == 0)
 		{
-			if (execve(argv[0], argv, NULL) = -1)
+			if (execve(argv[0], argv, NULL) == -1)
 			{
 				perror("execve");
 				exit(EXIT_FAILURE);
@@ -70,6 +70,12 @@ int main(void)
 
 		free(cmd);
 		free(argv);
+
+		cmd = NULL;
+		cmd_cpy = NULL;
+		token = NULL;
+		argc = 0;
+		i = 0;
 	}
 
 	exit(EXIT_SUCCESS);
