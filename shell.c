@@ -15,18 +15,18 @@
 
 extern char **environ;
 
-int main()
+int main(void)
 {
 	pid_t pid;
 	char input[MAX_INPUT];
 	int status;
 
-	while(1)
+	while (1)
 	{
 		printf(PROMPT);
 		fflush(stdout);
 
-		if(fgets(input, MAX_INPUT, stdin) == NULL)
+		if (fgets(input, MAX_INPUT, stdin) == NULL)
 		{
 			printf("\n");
 			exit(EXIT_FAILURE);
@@ -36,17 +36,18 @@ int main()
 
 		pid = fork();
 
-		if(pid < 0)
+		if (pid < 0)
 		{
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
 
-		if(pid == 0)
+		if (pid == 0)
 		{
 			char *args[2] = { NULL };
+
 			args[0] = input;
-			if(execve(input, args, environ) < 0)
+			if (execve(input, args, environ) < 0)
 			{
 				perror("execve");
 				exit(EXIT_FAILURE);
