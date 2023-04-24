@@ -6,13 +6,14 @@
 
 #define PROMPT "shell$ "
 /**
- * main - Handle command lines with arguments
+ * main - simple shell
  *
  * Return: void
  */
 int main(void)
 {
 	char *cmd = NULL, *cmd_cpy = NULL, *token = NULL;
+	char *envp[] = { (char *) "PATH=/bin", 0 };
 	char *delim = " \n";
 	pid_t pid;
 	size_t n = 0;
@@ -23,7 +24,7 @@ int main(void)
 	while(1)
 	{
 		write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
-		
+
 		if (getline(&cmd, &n, stdin) == -1)
 		{
 			exit(EXIT_FAILURE);
@@ -40,6 +41,7 @@ int main(void)
 		argv = malloc(sizeof(char *) * (argc + 1));
 
 		token = strtok(cmd_cpy, delim);
+		envp = (cmd, "/bin");
 		while (token)
 		{
 			argv[i] = token;
@@ -47,7 +49,7 @@ int main(void)
 			i++;
 		}
 		argv[i] = NULL;
-		
+
 		pid = fork();
 		if (pid == 0)
 		{
