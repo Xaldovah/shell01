@@ -5,10 +5,11 @@
 #define MAX_PATH_LENGTH 256
 #define PROMPT ":) "
 
-/**
- * This function initializes the path array by parsing PATH environ variable.
+/* init_paths - This func init the path array by parsing the PATH environ var
  * It splits the string into individual paths and stores them in the path array
+ * If the PATH var is not set, it prints an error message and exits the program.
  */
+
 void init_paths(void)
 {
 	char *path_var;
@@ -39,6 +40,13 @@ void init_paths(void)
 	path[i] = NULL;
 }
 
+/**
+ * find_command - Searches for a command in the directories listed in PATH
+ * @command: Command to search for
+ *
+ * Return: Returns the full path of the command if it is found and executable,
+*/
+
 char *find_command(char *command)
 {
 	char path_buffer[MAX_PATH_LENGTH];
@@ -55,6 +63,15 @@ char *find_command(char *command)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * This function parses the input string and splits it into an array of argum.
+ * It uses whitespace characters as delimiters to separate each argument.
+ * It stores the resulting arguments in the given args array.
+ * It adds a NULL pointer at the end of the array to mark its end.
+ * @param input The input string to parse
+ * @param args The array of arguments to store the result in
+*/
+
 void parse_input(char *input, char *args[])
 {
 	int i = 0;
@@ -69,6 +86,12 @@ void parse_input(char *input, char *args[])
 
 	args[i] = NULL; /* add a NULL pointer to mark the end of the array */
 }
+
+/**
+ * main - Simple shell program entry point
+ *
+ * Return: Always 0 on success
+ */
 
 int main(void)
 {
