@@ -5,9 +5,10 @@
 #define MAX_PATH_LENGTH 256
 #define PROMPT ":) "
 
-/* init_paths - This func init the path array by parsing the PATH environ var
+/**
+ * init_paths - This func init the path array by parsing the PATH environ var
  * It splits the string into individual paths and stores them in the path array
- * If the PATH var is not set, it prints an error message and exits the program.
+ * If the PATH var is not set, it prints an error message and exits the program
  */
 
 void init_paths(void)
@@ -64,12 +65,12 @@ char *find_command(char *command)
 }
 
 /**
- * This function parses the input string and splits it into an array of argum.
+ * parse_input - This func parses the input string and splits it into an array.
  * It uses whitespace characters as delimiters to separate each argument.
  * It stores the resulting arguments in the given args array.
  * It adds a NULL pointer at the end of the array to mark its end.
- * @param input The input string to parse
- * @param args The array of arguments to store the result in
+ * @input: input string to parse
+ * @args: The array of arguments to store the result in
 */
 
 void parse_input(char *input, char *args[])
