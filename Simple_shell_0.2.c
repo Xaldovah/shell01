@@ -19,7 +19,7 @@ int main(void)
 	while(1)
 	{
 		write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
-		
+
 		if (getline(&cmd, &n, stdin) == -1)
 		{
 			exit(EXIT_FAILURE);
@@ -43,7 +43,7 @@ int main(void)
 			i++;
 		}
 		argv[i] = NULL;
-		
+
 		pid = fork();
 		if (pid == 0)
 		{
