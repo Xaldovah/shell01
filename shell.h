@@ -20,5 +20,6 @@ void free_paths();
 extern char **environ;
 char *string_toupper(char *s);
 char *path[MAX_PATHS + 1];
+void print_environment(void);
 
 #endif
