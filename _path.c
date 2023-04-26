@@ -9,7 +9,6 @@
 char *check_path(char *cmd)
 {
 	char *path = getenv("PATH"), *dir = NULL, *fullpath = NULL;
-	struct stat st;
 
 	if (!path)
 		exit(EXIT_FAILURE);
@@ -17,8 +16,8 @@ char *check_path(char *cmd)
 	dir = strtok(path, ":");
 	while (dir)
 	{
-		fullpath = _strcat(dir, "/");
-		fullpath = _strcat(fullpath, cmd);
+		fullpath = strcat(dir, "/");
+		fullpath = strcat(fullpath, cmd);
 		if (stat(fullpath, &st) == 0)
 			exit(EXIT_SUCCESS);
 		free(fullpath);
