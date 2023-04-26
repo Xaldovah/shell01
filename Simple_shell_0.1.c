@@ -18,7 +18,7 @@ int main(void)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, PROMPT, 7);
+		write(STDOUT_FILENO, PROMPT, 2);
 		fflush(stdout);
 		if (getline(&input, &input_size, stdin) == -1)
 		{
