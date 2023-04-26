@@ -1,3 +1,5 @@
+#include "shell.h"
+
 /**
   * tokenize_cmdline - Tokenize a command line into arguments
   * @cmdline: The command line to tokenize
@@ -25,7 +27,7 @@ char **tokenize_cmdline(char *cmdline)
 	/* Allocate memory for the arguments */
 	args = malloc(sizeof(char *) * (arg_count + 1));
 	if (!args)
-		return (NULL);
+		exit(EXIT_FAILURE);
 
 	/* Tokenize the command line */
 	token = strtok(cmdline, " ");
@@ -38,6 +40,6 @@ char **tokenize_cmdline(char *cmdline)
 	/* Set the last argument to NULL */
 	args[arg_count] = NULL;
 
-	return (args);
+	exit(EXIT_SUCCESS);
 }
 
