@@ -17,14 +17,12 @@ char *check_path(char *cmd)
 	{
 		path_copy = strdup(path);
 		cmd_len = strlen(cmd);
-
 		path_token = strtok(path_copy, ":");
 
 		while (path_token != NULL)
 		{
 			dir_len = strlen(path_token);
 			file_path = malloc(cmd_len + dir_len + 2);
-
 			strcpy(file_path, path_token);
 			strcat(file_path, "/");
 			strcat(file_path, cmd);
@@ -47,9 +45,7 @@ char *check_path(char *cmd)
 		{
 			exit(EXIT_FAILURE);
 		}
-
 		exit(EXIT_FAILURE);
 	}
-
 	exit(EXIT_FAILURE);
 }

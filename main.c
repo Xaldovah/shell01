@@ -3,11 +3,8 @@
 /**
  * main - This program runs a simple shell.
  *
- * Return: Always 0.
+ * Return: exit(EXIT_SUCCESS)
  */
-
-#define MAX_INPUT 1024
-#define PROMPT "$ "
 
 int main(void)
 {

@@ -7,22 +7,25 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
-#define MAX_ARGS 64
-#define MAX_PATHS 64
-#define MAX_PATH_LENGTH 256
+#define MAX_INPUT 1024
+#define PROMPT "shell$ "
 
 /* Function prototypes */
-void init_paths();
-char *find_command(char *command);
-void parse_input(char *input, char *args[]);
-void free_array(char *args[]);
-void free_paths();
 extern char **environ;
+
 char *string_toupper(char *s);
-char *path[MAX_PATHS + 1];
-void print_environment(void);
-struct stat st;
+struct stat buffer;
 void _print_environ(void);
+void handle_exit(char **tokens, char *line);
+char **tokenize_cmdline(char *cmdline);
+char *strdup(const char *s);
+char *check_path(char *cmd);
+char *getenv(const char *name);
+size_t strlen(const char *s);
+char *strcat(char *dest, const char *src);
+char *strcpy(char *dest, const char *src);
+size_t strcspn(const char *s, const char *reject);
 
 #endif
