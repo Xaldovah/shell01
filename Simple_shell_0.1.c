@@ -7,7 +7,7 @@
  */
 
 #define MAX_INPUT 1024
-#define PROMPT "shell$ "
+#define PROMPT "$ "
 
 int main(void)
 {
