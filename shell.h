@@ -23,5 +23,6 @@ char *string_toupper(char *s);
 char *path[MAX_PATHS + 1];
 void print_environment(void);
 struct stat st;
+void _print_environ(void);
 
 #endif
