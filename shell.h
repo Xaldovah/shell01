@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 #define MAX_ARGS 64
 #define MAX_PATHS 64
@@ -21,5 +22,6 @@ extern char **environ;
 char *string_toupper(char *s);
 char *path[MAX_PATHS + 1];
 void print_environment(void);
+struct stat st;
 
 #endif
