@@ -17,7 +17,7 @@
 #define BUFFER_SIZE 1024
 
 /* Function prototypes */
-char *path[MAX_PATHS + 1]; /* array to hold paths from PATH environment var*/
+extern char *path[MAX_PATHS + 1];
 extern char **environ;
 
 char *string_toupper(char *s);
