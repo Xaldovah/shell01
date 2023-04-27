@@ -14,6 +14,7 @@
 #define MAX_ARGS 64
 #define MAX_PATHS 64
 #define MAX_PATH_LENGTH 256
+#define BUFFER_SIZE 1024
 
 /* Function prototypes */
 char *path[MAX_PATHS + 1]; /* array to hold paths from PATH environment var*/
@@ -31,7 +32,7 @@ size_t strlen(const char *s);
 char *strcat(char *dest, const char *src);
 char *strcpy(char *dest, const char *src);
 size_t strcspn(const char *s, const char *reject);
-
+char *my_getline(void);
 void parse_input(char *input, char **args);
 char *find_command(char *command);
 void free_array(char **args);
