@@ -13,6 +13,7 @@ char *my_getline(void)
 	static int chars_in_buffer;
 	char *line = NULL;
 	int line_size = 0;
+	char c = buffer[buffer_index];
 
 	while (1)
 	{
@@ -32,7 +33,6 @@ char *my_getline(void)
 				}
 			}
 		}
-		char c = buffer[buffer_index];
 
 		buffer_index++;
 		if (c == '\n')
@@ -48,5 +48,4 @@ char *my_getline(void)
 		line[line_size] = '\0';
 	}
 	return (line);
-	}
 }
