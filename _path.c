@@ -31,7 +31,8 @@ char *check_path(char *cmd)
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_copy);
-				exit(EXIT_FAILURE);
+				free(file_path);
+				return (file_path);
 			}
 			else
 			{
@@ -40,12 +41,11 @@ char *check_path(char *cmd)
 			}
 		}
 		free(path_copy);
-
 		if (stat(cmd, &buffer) == 0)
 		{
-			exit(EXIT_FAILURE);
+			return (cmd);
 		}
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
-	exit(EXIT_FAILURE);
+	return (NULL);
 }
