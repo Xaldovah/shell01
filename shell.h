@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <signal.h>
 
 #define MAX_INPUT 1024
 #define PROMPT "shell$ "
@@ -19,6 +20,7 @@
 /* Function prototypes */
 extern char *path[MAX_PATHS + 1];
 extern char **environ;
+extern char *find(char *nomb);
 
 char *string_toupper(char *s);
 struct stat buffer;
@@ -32,16 +34,18 @@ char *my_getline(void);
 void parse_input(char *input, char **args);
 char *find_command(char *command);
 void free_array(char **args);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int count_input(char *str);
 int count_del(char *str, char *del);
 char *concatenate_path(char *pathname, char *name);
 int exec_cmd(char *cmd, char **args);
 int builtin(char **tokens, char *ln);
+<<<<<<< HEAD
 void handle_exit(char **u_tokns, char *line);
 char **tokenize(char *str, char *del, int len);
+=======
+>>>>>>> 400c6a4b969145a3576825eda6997607a319f469
 void handle_signal(int sig_id);
-char *find(char *nomb);
 int exec(char *nomb, char **opts);
+char **tokenize(char *str, char *del, int len);
 
 #endif

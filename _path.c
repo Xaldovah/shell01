@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * check_path - Check if a command exists in the PATH
  * @cmd: The command to check

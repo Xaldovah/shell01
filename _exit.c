@@ -28,7 +28,7 @@ void handle_exit(char **tokens, char *line)
 	}
 	else
 	{
-		char *msg1 = "exit: prohibited number: ";
+		char *msg1 = "exit: error ";
 		char *msg2 = "\n";
 
 		write(STDOUT_FILENO, msg1, strlen(msg1));

@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
-  * concatenate_path - ...
-  * @pathname: ...
-  * @name: ...
-  *
-  * Return: ...
-  */
+ * concatenate_path - ...
+ * @pathname: ...
+ * @name: ...
+ *
+ * Return: ...
+ */
 char *concatenate_path(char *pathname, char *name)
 {
 	int program_len = 0, path_length = 0, size = 0;
@@ -25,11 +25,11 @@ char *concatenate_path(char *pathname, char *name)
 }
 
 /**
-  * find_cmd - ...
-  * @nomb: ...
-  *
-  * Return: Path name or NULL
-  */
+ * find_cmd - Function to check if command is found
+ * @nomb: The command name to find
+ *
+ * Return: Path name or NULL if failed
+ */
 char *find_cmd(char *nomb)
 {
 	char *environ_path = NULL, **u_tokens = NULL;

@@ -5,7 +5,7 @@
  * @tokens: ...
  * @ln: ...
  *
- * Return: (1 or 0)
+ * Return: EXIT_SUCCESS (1 or 0)
  */
 int builtin(char **tokens, char *ln)
 {

@@ -1,10 +1,8 @@
 #include "shell.h"
 /**
  * main - makes a simple shell
- *
- * Return: (0)
+ * Return: 0
  */
-
 int main(void)
 {
 	char *ln = NULL, **tokens = NULL;
