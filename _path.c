@@ -1,10 +1,6 @@
 #include "shell.h"
 
-<<<<<<< HEAD
 char *path[MAX_PATHS + 1];
-=======
-char *path[MAX_PATHS +1];
->>>>>>> ed22ed65589cc4dbd9f9f00b155f7067e71009f0
 
 /**
  * check_path - Check if a command exists in the PATH
