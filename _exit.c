@@ -9,36 +9,36 @@
 
 void handle_exit(char **tokens, char *line)
 {
-	int status = 0;
+        int status = 0;
+	int i;
 
-	if (tokens[1] == NULL || (!strcmp(tokens[1], "0")))
-	{
-		free(tokens);
-		free(line);
-		exit(0);
-	}
+        if (tokens[1] == NULL) /* No arguments passed to exit */
+        {
+                free(tokens);
+                free(line);
+                exit(0);
+        }
 
-	status = atoi(tokens[1]);
+        /* Check if the argument is a valid number */
+        for (i = 0; tokens[1][i] != '\0'; i++)
+        {
+                if (!isdigit(tokens[1][i]))
+                {
+                        char *msg1 = "exit: ";
+                        char *msg2 = ": numeric argument required\n";
 
-	if (status != 0)
-	{
-		free(tokens);
-		free(line);
-		exit(status);
-	}
-	else
-	{
-		char *msg1 = "exit: error ";
-		char *msg2 = "\n";
+                        write(STDOUT_FILENO, msg1, strlen(msg1));
+                        write(STDOUT_FILENO, tokens[1], strlen(tokens[1]));
+                        write(STDOUT_FILENO, msg2, strlen(msg2));
+                        free(tokens);
+                        free(line);
+                        return;
+                }
+        }
 
-		write(STDOUT_FILENO, msg1, strlen(msg1));
-		write(STDOUT_FILENO, tokens[1], strlen(tokens[1]));
-		write(STDOUT_FILENO, msg2, strlen(msg2));
-		free(tokens);
-		free(line);
-		exit(2);
-	}
-	free(tokens);
-	free(line);
-	exit(EXIT_SUCCESS);
+        status = atoi(tokens[1]);
+
+        free(tokens);
+        free(line);
+        exit(status);
 }
