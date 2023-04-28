@@ -1,7 +1,5 @@
 #include "shell.h"
 
-char *path[MAX_PATHS + 1];
-
 /**
  * check_path - Check if a command exists in the PATH
  * @cmd: The command to check

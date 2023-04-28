@@ -2,33 +2,34 @@
 
 /**
  * builtin - This function executes built in cmds
- * @u_tokns: ...
- * @line: ...
+ * @tokens: ...
+ * @ln: ...
  *
- * exit: EXIT_SUCCESS (1 or 0)
+ * Return: (1 or 0)
  */
 int builtin(char **tokens, char *ln)
 {
-        int i = 0;
-        char *listcommands[] = { "exit", "cd", "env", "echo", NULL };
+	int i = 0, j;
+	char *listcommands[] = { "exit", "cd", "env", "echo", NULL };
 
-        while (listcommands[i])
-        {
-                if (strcmp(tokens[0], listcommands[i]) == 0)
-                {
-                        switch (i)
-                        {
-                                case 0:
-                                        _handle_exit(tokens, ln);
-                                        break;
-                                case 1:
-                                        chdir(tokens[1]);
-                                        return (1);
-                                case 2:
-                                        _print_env();
-                                        return (1);
+	while (listcommands[i])
+	{
+		if (strcmp(tokens[0], listcommands[i]) == 0)
+		{
+			switch (i)
+			{
+				case 0:
+					_handle_exit(tokens, ln);
+					break;
+				case 1:
+					chdir(tokens[1]);
+					return (1);
+				case 2:
+					_print_environ();
+					return (1);
 				case 3:
-					int j = 1;
+					j = 1;
+
 					while (tokens[j])
 					{
 						write(STDOUT_FILENO, tokens[j], strlen(tokens[j]));
@@ -38,11 +39,11 @@ int builtin(char **tokens, char *ln)
 					write(STDOUT_FILENO, "\n", 1);
 					return (1);
 
-                                default:
-                                        break;
-                        }
-                }
-                i++;
-        }
-	exit(EXIT_SUCCESS);
+				default:
+					break;
+			}
+		}
+		i++;
+	}
+	return (0);
 }

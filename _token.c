@@ -27,14 +27,14 @@ char **tokenize_cmdline(char *cmdline)
 	/* Allocate memory for the arguments */
 	args = malloc(sizeof(char *) * (arg_count + 1));
 	if (!args)
-		exit(EXIT_FAILURE);
+		return (NULL);
 
-	temp = strdup(cmdline);
+	temp = _strdup(cmdline);
 	/* Tokenize the command line */
 	token = strtok(temp, " ");
 	for (i = 0; token != NULL; i++)
 	{
-		args[i] = strdup(token);
+		args[i] = _strdup(token);
 		token = strtok(NULL, " ");
 	}
 
@@ -42,7 +42,7 @@ char **tokenize_cmdline(char *cmdline)
 	args[arg_count] = NULL;
 	free(args);
 	free(temp);
-	
+
 	return (args);
 }
 

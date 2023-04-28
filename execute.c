@@ -1,34 +1,34 @@
 #include "shell.h"
 
 /**
-  * concat_path - Concatenate a path name and a program name
-  * @pathname: The path name to concatenate with the program name
-  * @name: The prog name
+  * concatenate_path - ...
+  * @pathname: ...
+  * @name: ...
   *
-  * Return: The path name concatenated with the program name
+  * Return: ...
   */
 char *concatenate_path(char *pathname, char *name)
 {
 	int program_len = 0, path_length = 0, size = 0;
 
-	program_len = strlen(name);
-	path_length = strlen(pathname);
+	program_len = _strlen(name);
+	path_length = _strlen(pathname);
 	size = sizeof(char) * (path_length + program_len + 2);
 	pathname = _realloc(pathname, (path_length + 1), size);
 	if (!pathname)
 		return (NULL);
 
-	strcat(pathname, "/");
-	strcat(pathname, name);
+	_strcat(pathname, "/");
+	_strcat(pathname, name);
 
 	return (pathname);
 }
 
 /**
-  * find_cmd - Function to check if command is found
-  * @nomb: The command name to find
+  * find_cmd - ...
+  * @nomb: ...
   *
-  * Return: Path name or NULL if failed
+  * Return: Path name or NULL
   */
 char *find_cmd(char *nomb)
 {
@@ -46,12 +46,12 @@ char *find_cmd(char *nomb)
 
 			while (u_tokens[i])
 			{
-				u_tokns[i] = concatenate_path(u_tokens[i], nomb);
+				u_tokens[i] = concatenate_path(u_tokens[i], nomb);
 
 				if (stat(u_tokens[i], &st) == 0)
 				{
 					free(nomb);
-					nomb = strdup(u_tokns[i]);
+					nomb = strdup(u_tokens[i]);
 					free(environ_path);
 					free(u_tokens);
 					return (nomb);
@@ -65,12 +65,12 @@ char *find_cmd(char *nomb)
 			return (nomb);
 	}
 	free(nomb);
-	return (EXIT_FAILURE);
+	return (NULL);
 }
 
 /**
   * exec_cmd - ...
-  * @command: ...
+  * @cmd: ...
   * @args: ...
   *
   * Return: An int
@@ -89,11 +89,9 @@ int exec_cmd(char *cmd, char **args)
 			execve(cmd, args, environ);
 			break;
 		default:
-			do
-			{
+			do {
 				waitpid(child, &prog, WUNTRACED);
-			}
-			while (WIFEXITED(status) == 0 && WIFSIGNALED(prog) == 0);
+			} while (WIFEXITED(prog) == 0 && WIFSIGNALED(prog) == 0);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
