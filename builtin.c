@@ -35,4 +35,3 @@ int builtin(char **tokens, char *ln)
         }
 	exit(EXIT_SUCCESS);
 }
-"builtins.c" 38L, 571C                                                                                                             23,5-40       Top
