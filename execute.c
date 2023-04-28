@@ -1,11 +1,19 @@
 #include "shell.h"
 
 /**
+<<<<<<< HEAD
   * concatenate_path - Concatenate a path name and a program name
   * @pathname: The path name to concatenate with the program name
   * @name: The prog name
   *
   * Return: The path name concatenated with the program name
+=======
+  * concatenate_path - ...
+  * @pathname: ...
+  * @name: ...
+  *
+  * Return: ...
+>>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
   */
 char *concatenate_path(char *pathname, char *name)
 {
@@ -25,10 +33,17 @@ char *concatenate_path(char *pathname, char *name)
 }
 
 /**
+<<<<<<< HEAD
   * find_cmd - Function to check if command is found
   * @nomb: The command name to find
   *
   * Return: Path name or NULL if failed
+=======
+  * find_cmd - ...
+  * @nomb: ...
+  *
+  * Return: Path name or NULL
+>>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
   */
 char *find_cmd(char *nomb)
 {
@@ -40,7 +55,11 @@ char *find_cmd(char *nomb)
 	{
 		if (stat(nomb, &st) != 0 && nomb[0] != '/')
 		{
+<<<<<<< HEAD
 			environ_path = _getenv("PATH");
+=======
+			environ_path = getenv("PATH");
+>>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
 			num = count_del(environ_path, ":") + 1;
 			u_tokens = tokenize(environ_path, ":", num);
 
@@ -51,7 +70,11 @@ char *find_cmd(char *nomb)
 				if (stat(u_tokens[i], &st) == 0)
 				{
 					free(nomb);
+<<<<<<< HEAD
 					nomb = _strdup(u_tokens[i]);
+=======
+					nomb = strdup(u_tokens[i]);
+>>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
 					free(environ_path);
 					free(u_tokens);
 					return (nomb);
