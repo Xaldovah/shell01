@@ -1,15 +1,8 @@
 #include "shell.h"
 /**
  * main - makes a simple shell
-<<<<<<< HEAD
  * Return: 0
  */
-=======
- *
- * Return: (0)
- */
-
->>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
 int main(void)
 {
 	char *ln = NULL, **tokens = NULL;
@@ -22,11 +15,7 @@ int main(void)
 		signal(SIGINT, handle_signal);
 		if (isatty(STDIN_FILENO))
 		{
-<<<<<<< HEAD
-			write(STDOUT_FILENO, PROMPT, _strlen(PROMPT) + 1);
-=======
 			write(STDOUT_FILENO, PROMPT, strlen(PROMPT) + 1);
->>>>>>> edbbd58bb0a594190060339b47a426caab2508e9
 		}
 		ln_length = getline(&ln, &ln_size, stdin);
 		if (ln_length == -1)

@@ -3,7 +3,7 @@
 /**
  * my_getline - ...
  *
- * Return: EXIT_SUCCESS
+ * Return: line
  */
 
 char *my_getline(void)
@@ -29,7 +29,7 @@ char *my_getline(void)
 				}
 				else
 				{
-					exit(EXIT_FAILURE);
+					return (NULL);
 				}
 			}
 		}
