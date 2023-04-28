@@ -10,7 +10,7 @@
 int builtin(char **tokens, char *ln)
 {
         int i = 0;
-        char *listcommands[] = { "exit", "cd", "env", NULL };
+        char *listcommands[] = { "exit", "cd", "env", "echo", NULL };
 
         while (listcommands[i])
         {
@@ -27,6 +27,17 @@ int builtin(char **tokens, char *ln)
                                 case 2:
                                         _print_env();
                                         return (1);
+				case 3:
+					int j = 1;
+					while (tokens[j])
+					{
+						write(STDOUT_FILENO, tokens[j], strlen(tokens[j]));
+						write(STDOUT_FILENO, " ", 1);
+						j++;
+					}
+					write(STDOUT_FILENO, "\n", 1);
+					return (1);
+
                                 default:
                                         break;
                         }
