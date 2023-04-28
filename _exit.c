@@ -38,4 +38,7 @@ void handle_exit(char **tokens, char *line)
 		free(line);
 		exit(2);
 	}
+	free(tokens);
+	free(line);
+	exit(EXIT_SUCCESS);
 }
