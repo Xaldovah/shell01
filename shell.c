@@ -1,6 +1,8 @@
 #include "shell.h"
 /**
  * main - Entry point for the shell
+ * @argc: Number of arguments
+ * @argv: Array...
  *
  * Return: Always 0.
  */
@@ -50,7 +52,6 @@ int main(int argc, char **argv)
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
-		exec(argv);
 	}
 	free(lnptr_copy);
 	free(lnptr);
