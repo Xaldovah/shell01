@@ -1,11 +1,16 @@
 #include "shell.h"
+/**
+ * main - makesa simple shell
+ *
+ * Exit: (SUCCESS)
+ */
 
 int main(void)
 {
-    char *ln = NULL, **tokens = NULL;
-    int str_len = 0, Flag = 0;
-    size_t ln_size = 0;
-    ssize_t ln_length = 0;
+	char *ln = NULL, **tokens = NULL;
+	int str_len = 0, Flag = 0;
+	size_t ln_size = 0;
+	ssize_t ln_length = 0;
 
     while (ln_length >= 0)
     {

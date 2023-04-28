@@ -8,8 +8,7 @@
   */
 char **tokenize_cmdline(char *cmdline)
 {
-	char **args = NULL;
-	char *token = NULL;
+	char **args = NULL, *token = NULL, *temp = NULL;
 	int arg_count = 0;
 	int i;
 
@@ -30,8 +29,9 @@ char **tokenize_cmdline(char *cmdline)
 	if (!args)
 		exit(EXIT_FAILURE);
 
+	temp = strdup(cmdline);
 	/* Tokenize the command line */
-	token = strtok(cmdline, " ");
+	token = strtok(temp, " ");
 	for (i = 0; token != NULL; i++)
 	{
 		args[i] = strdup(token);
@@ -40,7 +40,9 @@ char **tokenize_cmdline(char *cmdline)
 
 	/* Set the last argument to NULL */
 	args[arg_count] = NULL;
-
-	exit(EXIT_SUCCESS);
+	free(args);
+	free(temp);
+	
+	return (args);
 }
 
