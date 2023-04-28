@@ -11,15 +11,15 @@ char *concatenate_path(char *pathname, char *name)
 {
 	int program_len = 0, path_length = 0, size = 0;
 
-	program_len = _strlen(name);
-	path_length = _strlen(pathname);
+	program_len = strlen(name);
+	path_length = strlen(pathname);
 	size = sizeof(char) * (path_length + program_len + 2);
-	pathname = _realloc(pathname, (path_length + 1), size);
+	pathname = realloc(pathname, size);
 	if (!pathname)
 		return (NULL);
 
-	_strcat(pathname, "/");
-	_strcat(pathname, name);
+	strcat(pathname, "/");
+	strcat(pathname, name);
 
 	return (pathname);
 }

@@ -29,12 +29,12 @@ char **tokenize_cmdline(char *cmdline)
 	if (!args)
 		return (NULL);
 
-	temp = _strdup(cmdline);
+	temp = strdup(cmdline);
 	/* Tokenize the command line */
 	token = strtok(temp, " ");
 	for (i = 0; token != NULL; i++)
 	{
-		args[i] = _strdup(token);
+		args[i] = strdup(token);
 		token = strtok(NULL, " ");
 	}
 
@@ -45,4 +45,3 @@ char **tokenize_cmdline(char *cmdline)
 
 	return (args);
 }
-

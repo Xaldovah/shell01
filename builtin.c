@@ -19,7 +19,7 @@ int builtin(char **tokens, char *ln)
 			switch (i)
 			{
 				case 0:
-					_handle_exit(tokens, ln);
+					handle_exit(tokens, ln);
 					break;
 				case 1:
 					chdir(tokens[1]);
