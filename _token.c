@@ -41,7 +41,6 @@ char **tokenize_cmdline(char *cmdline)
 		if (!args[i])
 		{
 			free(args);
-			free(temp);
 			return (NULL);
 		}
 		token = strtok(NULL, " ");

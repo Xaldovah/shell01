@@ -26,19 +26,19 @@ char *concatenate_path(char *pathname, char *name)
 
 /**
  * find_cmd - ...
- * @nomb: cmd to find
+ * @cname: cmd to find
  *
  * Return: Path name or NULL
  */
-char *find_cmd(char *nomb)
+char *find_cmd(char *cname)
 {
 	char *environ_path = NULL, **u_tokens = NULL;
 	int i = 0, num = 0;
 	struct stat st;
 
-	if (nomb)
+	if (cname)
 	{
-		if (stat(nomb, &st) != 0 && nomb[0] != '/')
+		if (stat(cname, &st) != 0 && cname[0] != '/')
 		{
 			environ_path = getenv("PATH");
 			num = count_del(environ_path, ":") + 1;
@@ -46,25 +46,25 @@ char *find_cmd(char *nomb)
 
 			while (u_tokens[i])
 			{
-				u_tokens[i] = concatenate_path(u_tokens[i], nomb);
+				u_tokens[i] = concatenate_path(u_tokens[i], cname);
 
 				if (stat(u_tokens[i], &st) == 0)
 				{
-					free(nomb);
-					nomb = strdup(u_tokens[i]);
+					free(cname);
+					cname = strdup(u_tokens[i]);
 					free(environ_path);
 					free(u_tokens);
-					return (nomb);
+					return (cname);
 				}
 				i++;
 			}
 			free(environ_path);
 			free(u_tokens);
 		}
-		if (stat(nomb, &st) == 0)
-			return (nomb);
+		if (stat(cname, &st) == 0)
+			return (cname);
 	}
-	free(nomb);
+	free(cname);
 	return (NULL);
 }
 

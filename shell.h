@@ -23,7 +23,7 @@ extern char **environ;
 /* Function prototypes */
 char *string_toupper(char *s);
 char *find(char *command);
-char *find_cmd(char *nomb);
+char *find_cmd(char *cname);
 void _print_environ(void);
 void handle_exit(char **tokens, char *line);
 char **tokenize_cmdline(char *cmdline);
@@ -40,6 +40,6 @@ int builtin(char **tokens, char *ln);
 void handle_exit(char **u_tokns, char *line);
 char **tokenize(char *str, char *del, int len);
 void handle_signal(int sig_id);
-int exec(char *nomb, char **opts);
+int exec(char *cname, char **opts);
 
 #endif

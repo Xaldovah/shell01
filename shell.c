@@ -8,24 +8,20 @@
  */
 int main(int argc, char **argv)
 {
-	char *prompt = "shell$ ";
-	char *lnptr = NULL, *lnptr_copy = NULL;
+	char *lnptr = NULL, *lnptr_copy = NULL, *token;
+	const char *delim = " \n";
 	size_t n = 0;
 	ssize_t nchars_read;
-	const char *delim = " \n";
-	int num_tokens = 0;
-	char *token;
-	int i;
-
+	int num_tokens = 0, i;
 	(void)argc;
 
 	while (1)
 	{
-		printf("%s", prompt);
+		write(STDOUT_FILENO, PROMPT, strlen(PROMPT) + 1);
 		nchars_read = getline(&lnptr, &n, stdin);
 		if (nchars_read == -1)
 		{
-			printf("Exiting shell....\n");
+			write(STDOUT_FILENO, "Exiting shell....\n", 18);
 			return (-1);
 		}
 		lnptr_copy = malloc(sizeof(char) * nchars_read);
@@ -42,7 +38,6 @@ int main(int argc, char **argv)
 			token = strtok(NULL, delim);
 		}
 		num_tokens++;
-
 		argv = malloc(sizeof(char *) * num_tokens);
 		token = strtok(lnptr_copy, delim);
 		for (i = 0; token != NULL; i++)
