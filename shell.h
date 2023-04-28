@@ -22,6 +22,7 @@ extern char **environ;
 
 char *string_toupper(char *s);
 struct stat buffer;
+struct stat st;
 void _print_environ(void);
 void handle_exit(char **tokens, char *line);
 char **tokenize_cmdline(char *cmdline);
