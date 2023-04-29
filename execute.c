@@ -42,10 +42,7 @@ char *find_cmd(char *command)
 		{
 			environ_path = getenv("PATH");
 			if (environ_path == NULL) /* Add null check */
-			{
 				return (NULL);
-			}
-
 			u_token = strtok(environ_path, del);
 			while (u_token)
 			{
@@ -55,6 +52,7 @@ char *find_cmd(char *command)
 					free(command);
 					command = strdup(token);
 					free(token);
+					free(environ_path);
 					return (command);
 				}
 				free(token);
@@ -80,7 +78,7 @@ char *find_cmd(char *command)
 int exec_cmd(char *cmd, char **args)
 {
 	pid_t child;
-	int prog, status;
+	int status;
 
 	switch (child = fork())
 	{
@@ -93,13 +91,13 @@ int exec_cmd(char *cmd, char **args)
 			exit(EXIT_FAILURE);
 		default:
 			do {
-				status = waitpid(child, &prog, WUNTRACED);
+				status = waitpid(child, &status, WUNTRACED);
 				if (status == -1)
 				{
 					perror("waitpid");
 					exit(EXIT_FAILURE);
 				}
-			} while (WIFEXITED(prog) == 0 && WIFSIGNALED(prog) == 0);
+			} while (WIFEXITED(status) == 0 && WIFSIGNALED(status) == 0);
 	}
 	return (0);
 }
