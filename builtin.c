@@ -2,8 +2,8 @@
 
 /**
  * builtin - This function executes built in cmds
- * @tokens: ...
- * @ln: ...
+ * @tokens: An array of strings containing the tokens
+ * @ln: A string containing the user input
  *
  * Return: 0
  */

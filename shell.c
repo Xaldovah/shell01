@@ -1,19 +1,18 @@
 #include "shell.h"
 /**
  * main - Entry point for the shell
- * @argc: Number of arguments
+ * @argc: Unused param
  * @argv: Array...
  *
- * Return: Always 0.
+ * Return: 0.
  */
-int main(int argc, char **argv)
+int main(int argc __attribute__((unused)), char **argv)
 {
 	char *lnptr = NULL, *lnptr_copy = NULL, *token;
 	const char *delim = " \n";
 	size_t n = 0;
 	ssize_t nchars_read;
 	int num_tokens = 0, i;
-	(void)argc;
 
 	while (1)
 	{
@@ -48,7 +47,5 @@ int main(int argc, char **argv)
 		}
 		argv[i] = NULL;
 	}
-	free(lnptr_copy);
-	free(lnptr);
 	return (0);
 }

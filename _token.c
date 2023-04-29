@@ -2,48 +2,30 @@
 
 /**
   * tokenize_cmdline - ...
-  * @cmdline: ...
+  * @str: ...
+  * @del: ...
+  * @num:
   *
   * Return: array of args or NULL
   */
-char **tokenize_cmdline(char *cmdline)
+char **tokenize_cmdline(char *str, char *del, int num)
 {
 	char **args = NULL, *token = NULL, *temp = NULL;
-	int arg_count = 0, i;
+	int arg_count = 0;
 
-	for (i = 0; cmdline[i] != '\0'; i++)
-	{
-		if (cmdline[i] == ' ')
-		{
-			arg_count++;
-			while (cmdline[i] == ' ')
-
-			i++;
-		}
-	}
-	arg_count++; /* Account for the last argument */
-
-	args = malloc(sizeof(char *) * (arg_count + 1));
+	args = malloc(sizeof(char *) * (num + 1));
 	if (!args)
 	{
 		return (NULL);
 	}
-	temp = strdup(cmdline);
-	if (!temp)
+	str = del_ln(str);
+	temp = strdup(str);
+	token = strtok(temp, del);
+	while (token)
 	{
-		free(args);
-		return (NULL);
-	}
-	token = strtok(temp, " ");
-	for (i = 0; token != NULL; i++)
-	{
-		args[i] = strdup(token);
-		if (!args[i])
-		{
-			free(args);
-			return (NULL);
-		}
-		token = strtok(NULL, " ");
+		args[arg_count] = strdup(token);
+		token = strtok(NULL, token);
+		arg_count++;
 	}
 	args[arg_count] = NULL;
 	free(temp);

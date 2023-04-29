@@ -20,53 +20,55 @@ char *concatenate_path(char *pathname, char *name)
 
 	strcat(pathname, "/");
 	strcat(pathname, name);
+	pathname[path_length + program_len + 1] = '\0';
 
 	return (pathname);
 }
 
 /**
  * find_cmd - ...
- * @cname: cmd to find
+ * @command: cmd to find
  *
  * Return: Path name or NULL
  */
-char *find_cmd(char *cname)
+char *find_cmd(char *command)
 {
-	char *environ_path = NULL, **u_tokens = NULL;
-	int i = 0, num = 0;
+	char *environ_path = NULL, *u_token = NULL, *del = ":", *token = NULL;
 	struct stat st;
 
-	if (cname)
+	if (command)
 	{
-		if (stat(cname, &st) != 0 && cname[0] != '/')
+		if (stat(command, &st) != 0 && command[0] != '/')
 		{
 			environ_path = getenv("PATH");
-			num = count_del(environ_path, ":") + 1;
-			u_tokens = tokenize(environ_path, ":", num);
-
-			while (u_tokens[i])
+			if (environ_path == NULL) /* Add null check */
 			{
-				u_tokens[i] = concatenate_path(u_tokens[i], cname);
+				return (NULL);
+			}
 
-				if (stat(u_tokens[i], &st) == 0)
+			u_token = strtok(environ_path, del);
+			while (u_token)
+			{
+				token = concatenate_path(u_token, command);
+				if (stat(token, &st) == 0)
 				{
-					free(cname);
-					cname = strdup(u_tokens[i]);
-					free(environ_path);
-					free(u_tokens);
-					return (cname);
+					free(command);
+					command = strdup(token);
+					free(token);
+					return (command);
 				}
-				i++;
+				free(token);
+				u_token = strtok(NULL, del);
 			}
 			free(environ_path);
-			free(u_tokens);
 		}
-		if (stat(cname, &st) == 0)
-			return (cname);
+		if (stat(command, &st) == 0)
+			return (command);
 	}
-	free(cname);
+	free(command);
 	return (NULL);
 }
+
 
 /**
   * exec_cmd - ...
