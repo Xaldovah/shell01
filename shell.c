@@ -46,6 +46,8 @@ int main(int argc __attribute__((unused)), char **argv)
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
+		execmd(argv);
 	}
+	free(lnptr), free(lnptr_copy), free(argv);
 	return (0);
 }

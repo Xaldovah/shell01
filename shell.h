@@ -39,5 +39,6 @@ char **tokenize_cmdline(char *str, char *del, int num);
 void handle_signal(int sig_id);
 int exec(char *cname, char **opts);
 char *del_ln(char *str);
+void execmd(char **argv);
 
 #endif
