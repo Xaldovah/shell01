@@ -1,41 +1,38 @@
 #include "shell.h"
 
 /**
- * handle_exit - This function is responsible for handling exit
- * @tokens: checks arguments
- * @line: ...
+ * res_handle_exit - This function is responsible for handling exit
+ * @res_tokens: checks arguments
+ * @res_line: ...
  * Return: No return expected
  */
 
-void handle_exit(char **tokens, char *line)
+void res_handle_exit(char **res_tokens, char *res_line)
 {
-	int status = 0;
-	int i;
+	int res_status = 0;
 
-	if (tokens[1] == NULL) /* No arguments passed to exit */
+	if (res_tokens[1] == NULL || (!_strcmp(res_tokens[1], "0")))
 	{
-		free(tokens);
-		free(line);
+		frees_second(res_tokens);
+		free(res_line);
 		exit(0);
 	}
-	for (i = 0; tokens[1][i] != '\0'; i++)
+	res_status = _atoi(res_tokens[1]);
+	if (res_status != 0)
 	{
-		if (!isdigit(tokens[1][i]))
-		{
-			char *msg1 = "exit: ";
-			char *msg2 = ": numeric argument required\n";
-
-			write(STDOUT_FILENO, msg1, strlen(msg1));
-			write(STDOUT_FILENO, tokens[1], strlen(tokens[1]));
-			write(STDOUT_FILENO, msg2, strlen(msg2));
-			free(tokens);
-			free(line);
-			return;
-		}
+		frees_second(res_tokens);
+		free(res_line);
+		exit(res_status);
 	}
-	status = atoi(tokens[1]);
+	else
+	{
+		_puts("exit: prohibited: ");
+		_puts(res_tokens[1]);
+		_puts("\n");
+		exit(2);
+	}
 
-	free(tokens);
-	free(line);
-	exit(status);
+	frees_second(res_tokens);
+	free(res_line);
+	exit(EXIT_SUCCESS);
 }

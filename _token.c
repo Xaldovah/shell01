@@ -8,26 +8,29 @@
   *
   * Return: array of args or NULL
   */
-char **tokenize_cmdline(char *str, char *del, int num)
-{
-	char **args = NULL, *token = NULL, *temp = NULL;
-	int arg_count = 0;
 
-	args = malloc(sizeof(char *) * (num + 1));
-	if (!args)
+char **custom_tokenize(char *str, char *delimiter, int count)
+{
+	char **token_array = NULL, *current_token = NULL, *temp_str = NULL;
+	int a = 0;
+
+	token_array = malloc(sizeof(char *) * (count + 1));
+	if (!token_array)
 	{
 		return (NULL);
 	}
-	str = del_ln(str);
-	temp = strdup(str);
-	token = strtok(temp, del);
-	while (token)
+	str = rem_newline_char(str);
+	temp_str = _strdup(str);
+	current_token = strtok(temp_str, delimiter);
+
+	while (current_token)
 	{
-		args[arg_count] = strdup(token);
-		token = strtok(NULL, token);
-		arg_count++;
+		token_array[a] = _strdup(current_token);
+		current_token = strtok(NULL, delimiter);
+		a++;
 	}
-	args[arg_count] = NULL;
-	free(temp);
-	return (args);
+
+	token_array[a] = NULL;
+	free(temp_str);
+	return (token_array);
 }

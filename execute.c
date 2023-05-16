@@ -1,103 +1,107 @@
 #include "shell.h"
 
 /**
- * concatenate_path - ...
- * @pathname: ...
- * @name: ...
- *
- * Return: ...
- */
-char *concatenate_path(char *pathname, char *name)
-{
-	int program_len = 0, path_length = 0, size = 0;
-
-	program_len = strlen(name);
-	path_length = strlen(pathname);
-	size = sizeof(char) * (path_length + program_len + 2);
-	pathname = realloc(pathname, size);
-	if (!pathname)
-		return (NULL);
-
-	strcat(pathname, "/");
-	strcat(pathname, name);
-	pathname[path_length + program_len + 1] = '\0';
-
-	return (pathname);
-}
-
-/**
- * find_cmd - ...
- * @command: cmd to find
- *
- * Return: Path name or NULL
- */
-char *find_cmd(char *command)
-{
-	char *environ_path = NULL, *u_token = NULL, *del = ":", *token = NULL;
-	struct stat st;
-
-	if (command)
-	{
-		if (stat(command, &st) != 0 && command[0] != '/')
-		{
-			environ_path = getenv("PATH");
-			if (environ_path == NULL) /* Add null check */
-				return (NULL);
-			u_token = strtok(environ_path, del);
-			while (u_token)
-			{
-				token = concatenate_path(u_token, command);
-				if (stat(token, &st) == 0)
-				{
-					free(command);
-					command = strdup(token);
-					free(token);
-					free(environ_path);
-					return (command);
-				}
-				free(token);
-				u_token = strtok(NULL, del);
-			}
-			free(environ_path);
-		}
-		if (stat(command, &st) == 0)
-			return (command);
-	}
-	free(command);
-	return (NULL);
-}
-
-
-/**
-  * exec_cmd - ...
-  * @cmd: ...
-  * @args: ...
+  * concatenate_path - Concatenate both names
+  * @dir_path: ...
+  * @file_name: ...
   *
-  * Return: An int
+  * Return: Concatenated names
   */
-int exec_cmd(char *cmd, char **args)
-{
-	pid_t child;
-	int status;
 
-	switch (child = fork())
+char *concatenate_path(char *dir_path, char *file_name)
+{
+	int file_name_len = 0, dir_path_len = 0, new_size = 0;
+
+	file_name_len = _strlen(file_name);
+	dir_path_len = _strlen(dir_path);
+	new_size = sizeof(char) * (dir_path_len + file_name_len + 2);
+	dir_path = realloc(dir_path, new_size);
+
+	if (!dir_path)
 	{
-		case -1:
-			perror("fork");
-			return (-1);
-		case 0:
-			execve(cmd, args, environ);
-			perror("execve");
-			exit(EXIT_FAILURE);
-		default:
-			do {
-				status = waitpid(child, &status, WUNTRACED);
-				if (status == -1)
-				{
-					perror("waitpid");
-					exit(EXIT_FAILURE);
-				}
-			} while (WIFEXITED(status) == 0 && WIFSIGNALED(status) == 0);
+		return (NULL);
 	}
-	return (0);
+	_strcat(dir_path, "/");
+	_strcat(dir_path, file_name);
+
+	return (dir_path);
+}
+
+/**
+  * lookup_path - ...
+  * @command_name: ...
+  *
+  * Return: Path name or NULL
+  */
+
+char *lookup_path(char *command_name)
+{
+    char *environ_path = NULL, **path_tokens = NULL;
+    int a = 0, num_delims = 0;
+    struct stat st;
+
+    if (command_name)
+    {
+        if (stat(command_name, &st) != 0 && command_name[0] != '/')
+        {
+            environ_path = getenv("PATH");
+            num_delims = count_chars(environ_path, ":") + 1;
+            path_tokens = custom_tokenize(environ_path, ":", num_delims);
+
+            while (path_tokens[a])
+            {
+                path_tokens[a] = concatenate_path(path_tokens[a], command_name);
+
+                if (stat(path_tokens[a], &st) == 0)
+                {
+                    free(command_name);
+                    command_name = _strdup(path_tokens[a]);
+                    frees_first(environ_path);
+                    frees_second(path_tokens);
+                    return (command_name);
+                }
+
+                a++;
+            }
+
+            frees_first(environ_path);
+            frees_second(path_tokens);
+        }
+
+        if (stat(command_name, &st) == 0)
+            return (command_name);
+    }
+
+    free(command_name);
+    return (NULL);
+}
+
+/**
+  * execute_cmd - ...
+  * @command_name: ...
+  * @arguments: ...
+  *
+  * Return: ...
+  */
+
+int execute_cmd(char *command_name, char **arguments)
+{
+    pid_t child_pid;
+    int status;
+
+    switch (child_pid = fork())
+    {
+        case -1:
+            perror("fork");
+            return (-1);
+        case 0:
+            execve(command_name, arguments, environ);
+	    break;
+        default:
+            do {
+                waitpid(child_pid, &status, WUNTRACED);
+            } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
+
+    return (0);
 }

@@ -19,26 +19,35 @@
 #define BUFFER_SIZE 1024
 
 extern char **environ;
+struct stat st;
+struct stat buffer;
 
 /* Function prototypes */
+void custom_signal_handler(int signal_iden);
+char **custom_tokenize(char *str, char *delimiter, int count);
+int _atoi(char *str);
+extern char *_strdup(const char *str);
+int _strcmp(char *s1, char *s2);
+int _strlen(const char *str);
+char *_strcat(char *destination, char *source);
+void frees_first(char *thing);
+void frees_second(char **tokens);
+char *custom_getenv(const char *var_name);
+char *concatenate_path(char *dir_path, char *file_name);
+char *lookup_path(char *command_name);
+void res_handle_exit(char **res_tokens, char *res_line);
+char *rem_newline_char(char *str);
+int builtin(char **tokens, char *ln);
+int count_chars(char *input, char *delimiters);
+int count_words(char *input);
 char *string_toupper(char *s);
-char *find_cmd(char *command);
-void _print_environ(void);
-void handle_exit(char **tokens, char *line);
+void *_realloc(void *pointer, unsigned int prev_size, unsigned int new_size);
+void _puts(char *s);
+int _putchar(char i);
+int _strncmp(const char *str1, const char *str2, size_t limit);
 char *check_path(char *cmd);
 char *my_getline(void);
-void parse_input(char *input, char **args);
-void free_array(char **args);
-int count_input(char *str);
-char *concatenate_path(char *pathname, char *name);
-int exec_cmd(char *cmd, char **args);
-int builtin(char **tokens, char *ln);
-void handle_exit(char **u_tokns, char *line);
-int count_del(char *str, char *del);
-char **tokenize_cmdline(char *str, char *del, int num);
-void handle_signal(int sig_id);
-int exec(char *cname, char **opts);
-char *del_ln(char *str);
-void execmd(char **argv);
+int execute_cmd(char *command_name, char **arguments);
+void prt_environ(void);
 
 #endif

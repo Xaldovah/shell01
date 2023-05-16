@@ -1,20 +1,20 @@
 #include "shell.h"
 
 /**
-  * del_ln - ...
+  * rem_newline_char - ...
   * @str: ...
   *
   * Return: string sino new line
   */
-char *del_ln(char *str)
+char *rem_newline_char(char *str)
 {
-	int i = 0;
+	int a = 0;
 
-	while (str[i])
+	while (str[a])
 	{
-		if (str[i] == '\n')
-			str[i] = '\0';
-		i++;
+		if (str[a] == '\n')
+			str[a] = '\0';
+		a++;
 	}
 
 	return (str);

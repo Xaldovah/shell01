@@ -39,7 +39,7 @@ char *my_getline(void)
 			break;
 		}
 		line_size++;
-		line = realloc(line, line_size + 1);
+		line = _realloc(line, line_size, line_size + 1);
 		line[line_size - 1] = c;
 	}
 	if (line)

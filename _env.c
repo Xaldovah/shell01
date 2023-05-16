@@ -1,24 +1,24 @@
 #include "shell.h"
 
 /**
- * _print_environ - This function prints the current env.
+ * prt_environ - This function prints the current env.
  *
  * Return: Does not return.
  */
-void _print_environ(void)
+void prt_environ(void)
 {
-	int i = 0, j = 0;
+	int a = 0, b = 0;
 
-	while (environ[i])
+	while (environ[a])
 	{
-		j = 0;
-		while (environ[i][j])
+		b = 0;
+		while (environ[a][b])
 		{
-			write(STDOUT_FILENO, &environ[i][j], 1);
-			j++;
+			write(STDOUT_FILENO, &environ[a][b], 1);
+			b++;
 		}
-		if (j != 0)
+		if (b != 0)
 			write(STDOUT_FILENO, "\n", 1);
-		i++;
+		a++;
 	}
 }

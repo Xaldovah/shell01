@@ -9,17 +9,17 @@
  */
 int builtin(char **tokens, char *ln)
 {
-	int i = 0, j;
+	int a = 0, b;
 	char *listcommands[] = { "exit", "cd", "env", "echo", NULL };
 
-	while (listcommands[i])
+	while (listcommands[a])
 	{
-		if (strcmp(tokens[0], listcommands[i]) == 0)
+		if (strcmp(tokens[0], listcommands[a]) == 0)
 		{
-			switch (i)
+			switch (a)
 			{
 				case 0:
-					handle_exit(tokens, ln);
+					res_handle_exit(tokens, ln);
 					break;
 				case 1:
 					if (tokens[1] == NULL)
@@ -30,15 +30,15 @@ int builtin(char **tokens, char *ln)
 					chdir(tokens[1]);
 					return (1);
 				case 2:
-					_print_environ();
+					prt_environ();
 					return (1);
 				case 3:
-					j = 1;
-					while (tokens[j])
+					b = 1;
+					while (tokens[b])
 					{
-						write(STDOUT_FILENO, tokens[j], strlen(tokens[j]));
+						write(STDOUT_FILENO, tokens[b], strlen(tokens[b]));
 						write(STDOUT_FILENO, " ", 1);
-						j++;
+						b++;
 					}
 					write(STDOUT_FILENO, "\n", 1);
 					return (1);
@@ -46,7 +46,7 @@ int builtin(char **tokens, char *ln)
 					break;
 			}
 		}
-		i++;
+		a++;
 	}
 	return (0);
 }
