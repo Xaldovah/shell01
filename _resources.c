@@ -7,7 +7,7 @@
   *
   * Return: ...
   */
-char *_strcat(char *destination, char *source)
+char *_strcat(char *destination, const char *source)
 {
         int dest_length = 0, a = 0;
 

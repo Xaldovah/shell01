@@ -13,14 +13,14 @@ void res_handle_exit(char **res_tokens, char *res_line)
 
 	if (res_tokens[1] == NULL || (!_strcmp(res_tokens[1], "0")))
 	{
-		frees_second(res_tokens);
+		free(res_tokens);
 		free(res_line);
 		exit(0);
 	}
 	res_status = _atoi(res_tokens[1]);
 	if (res_status != 0)
 	{
-		frees_second(res_tokens);
+		free(res_tokens);
 		free(res_line);
 		exit(res_status);
 	}
@@ -32,7 +32,7 @@ void res_handle_exit(char **res_tokens, char *res_line)
 		exit(2);
 	}
 
-	frees_second(res_tokens);
+	free(res_tokens);
 	free(res_line);
 	exit(EXIT_SUCCESS);
 }

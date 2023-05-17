@@ -24,21 +24,17 @@ struct stat buffer;
 
 /* Function prototypes */
 void custom_signal_handler(int signal_iden);
-char **custom_tokenize(char *str, char *delimiter, int count);
+char **custom_tokenize(const char *str, const char *delimiter, int count);
 int _atoi(char *str);
 extern char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(const char *str);
-char *_strcat(char *destination, char *source);
-void frees_first(char *thing);
-void frees_second(char **tokens);
+char *_strcat(char *destination, const char *source);
 char *custom_getenv(const char *var_name);
-char *concatenate_path(char *dir_path, char *file_name);
-char *lookup_path(char *command_name);
 void res_handle_exit(char **res_tokens, char *res_line);
-char *rem_newline_char(char *str);
+char *rem_newline_char(const char *str);
 int builtin(char **tokens, char *ln);
-int count_chars(char *input, char *delimiters);
+int count_chars(const char *input, const char *delimiters);
 int count_words(char *input);
 char *string_toupper(char *s);
 void *_realloc(void *pointer, unsigned int prev_size, unsigned int new_size);
@@ -47,7 +43,9 @@ int _putchar(char i);
 int _strncmp(const char *str1, const char *str2, size_t limit);
 char *check_path(char *cmd);
 char *my_getline(void);
-int execute_cmd(char *command_name, char **arguments);
 void prt_environ(void);
+char *concatenate_path(const char *dir_path, const char *file_name);
+char *lookup_path(const char *command_name);
+int execute_cmd(const char *command_name, char **arguments);
 
 #endif

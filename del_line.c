@@ -6,16 +6,22 @@
   *
   * Return: string sino new line
   */
-char *rem_newline_char(char *str)
+
+char *rem_newline_char(const char *str)
 {
-	int a = 0;
+    char *res;
+    size_t len = strlen(str);
 
-	while (str[a])
-	{
-		if (str[a] == '\n')
-			str[a] = '\0';
-		a++;
-	}
+    if (len == 0)
+        return NULL;
 
-	return (str);
+    res = malloc((len + 1) * sizeof(char));
+    if (res == NULL)
+        return NULL;
+
+    strncpy(res, str, len);
+    res[len - 1] = '\0';
+
+    return (res);
 }
+

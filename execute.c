@@ -8,23 +8,26 @@
   * Return: Concatenated names
   */
 
-char *concatenate_path(char *dir_path, char *file_name)
+char *concatenate_path(const char *dir_path, const char *file_name)
 {
-	int file_name_len = 0, dir_path_len = 0, new_size = 0;
+    size_t file_name_len = 0, dir_path_len = 0, new_size = 0;
+    char *result = NULL;
 
-	file_name_len = _strlen(file_name);
-	dir_path_len = _strlen(dir_path);
-	new_size = sizeof(char) * (dir_path_len + file_name_len + 2);
-	dir_path = realloc(dir_path, new_size);
+    file_name_len = _strlen(file_name);
+    dir_path_len = _strlen(dir_path);
+    new_size = dir_path_len + file_name_len + 2;
+    result = malloc(sizeof(char) * new_size);
 
-	if (!dir_path)
-	{
-		return (NULL);
-	}
-	_strcat(dir_path, "/");
-	_strcat(dir_path, file_name);
+    if (!result)
+    {
+        return NULL;
+    }
 
-	return (dir_path);
+    strcpy(result, dir_path);
+    _strcat(result, "/");
+    _strcat(result, file_name);
+
+    return result;
 }
 
 /**
@@ -34,9 +37,10 @@ char *concatenate_path(char *dir_path, char *file_name)
   * Return: Path name or NULL
   */
 
-char *lookup_path(char *command_name)
+char *lookup_path(const char *command_name)
 {
-    char *environ_path = NULL, **path_tokens = NULL;
+    const char *environ_path = NULL;
+    char **path_tokens = NULL;
     int a = 0, num_delims = 0;
     struct stat st;
 
@@ -50,30 +54,37 @@ char *lookup_path(char *command_name)
 
             while (path_tokens[a])
             {
-                path_tokens[a] = concatenate_path(path_tokens[a], command_name);
+                char *concatenated_path = concatenate_path(path_tokens[a], command_name);
 
-                if (stat(path_tokens[a], &st) == 0)
+                if (!concatenated_path)
                 {
-                    free(command_name);
-                    command_name = _strdup(path_tokens[a]);
-                    frees_first(environ_path);
-                    frees_second(path_tokens);
-                    return (command_name);
+                    /* Handle memory allocation failure */
+                    free(path_tokens);
+                    return NULL;
                 }
 
+                if (stat(concatenated_path, &st) == 0)
+                {
+                    free((void *)command_name);
+                    command_name = _strdup(concatenated_path);
+                    free(concatenated_path);
+                    free(path_tokens);
+                    return (char *)command_name;
+                }
+
+                free(concatenated_path);
                 a++;
             }
 
-            frees_first(environ_path);
-            frees_second(path_tokens);
+            free(path_tokens);
         }
 
         if (stat(command_name, &st) == 0)
-            return (command_name);
+            return (char *)command_name;
     }
 
-    free(command_name);
-    return (NULL);
+    free((void *)command_name);
+    return NULL;
 }
 
 /**
@@ -84,7 +95,7 @@ char *lookup_path(char *command_name)
   * Return: ...
   */
 
-int execute_cmd(char *command_name, char **arguments)
+int execute_cmd(const char *command_name, char **arguments)
 {
     pid_t child_pid;
     int status;
@@ -93,15 +104,16 @@ int execute_cmd(char *command_name, char **arguments)
     {
         case -1:
             perror("fork");
-            return (-1);
+            return -1;
         case 0:
             execve(command_name, arguments, environ);
-	    break;
+            perror("execve"); /* Handle execve error */
+            exit(EXIT_FAILURE); /* Terminate child process on error */
         default:
             do {
                 waitpid(child_pid, &status, WUNTRACED);
             } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 
-    return (0);
+    return 0;
 }

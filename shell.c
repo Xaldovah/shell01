@@ -44,7 +44,7 @@ int main(void)
 				}
 			}
 
-			frees_second(tokens);
+			free(tokens);
 		}
 	}
 

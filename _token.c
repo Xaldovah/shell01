@@ -9,7 +9,7 @@
   * Return: array of args or NULL
   */
 
-char **custom_tokenize(char *str, char *delimiter, int count)
+char **custom_tokenize(const char *str, const char *delimiter, int count)
 {
 	char **token_array = NULL, *current_token = NULL, *temp_str = NULL;
 	int a = 0;
