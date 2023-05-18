@@ -66,7 +66,7 @@ char *lookup_path(const char *command_name)
                 if (stat(concatenated_path, &st) == 0)
                 {
                     free((void *)command_name);
-                    command_name = _strdup(concatenated_path);
+                    command_name = strdup(concatenated_path);
                     free(concatenated_path);
                     free(path_tokens);
                     return (char *)command_name;

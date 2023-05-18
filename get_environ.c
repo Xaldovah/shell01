@@ -18,7 +18,7 @@ char *custom_getenv(const char *var_name)
 	{
 		if (_strncmp(var_name, environ[b], _strlen(var_name)) == 0)
 		{
-			env_var = _strdup(environ[b]);
+			env_var = strdup(environ[b]);
 			while (*env_var != '=')
 				env_var++;
 

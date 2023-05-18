@@ -15,7 +15,7 @@ char *check_path(char *cmd)
 
 	if (!path)
 		return (NULL);
-	path_copy = _strdup(path);
+	path_copy = strdup(path);
 	if (!path_copy)
 		return (NULL);
 	cmd_len = _strlen(cmd);

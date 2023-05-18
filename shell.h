@@ -26,7 +26,6 @@ struct stat buffer;
 void custom_signal_handler(int signal_iden);
 char **custom_tokenize(const char *str, const char *delimiter, int count);
 int _atoi(char *str);
-extern char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(const char *str);
 char *_strcat(char *destination, const char *source);

@@ -77,36 +77,6 @@ int _strcmp(char *s1, char *s2)
 
         return (variance);
 }
-
-/**
-  * _strdup - ...
-  * @str: ...
-  *
-  * Return: ...
-  */
-char *_strdup(const char *str)
-{
-        int index = 0, length = 1;
-        char *dup_str;
-
-        if (str == NULL)
-                return (NULL);
-
-        length = _strlen(str);
-        dup_str = malloc((sizeof(char) * length) + 1);
-        if (dup_str == NULL)
-                return (NULL);
-
-        while (index < length)
-        {
-                dup_str[index] = str[index];
-                index++;
-        }
-
-        dup_str[index] = '\0';
-        return (dup_str);
-}
-
 /**
   * _atoi - ...
   * @str: ...

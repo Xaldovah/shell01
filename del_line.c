@@ -4,9 +4,8 @@
   * rem_newline_char - ...
   * @str: ...
   *
-  * Return: string sino new line
+  * Return: string sin \n
   */
-
 char *rem_newline_char(const char *str)
 {
     char *res;
@@ -22,6 +21,7 @@ char *rem_newline_char(const char *str)
     strncpy(res, str, len);
     res[len - 1] = '\0';
 
+    free(res);
+
     return (res);
 }
-
