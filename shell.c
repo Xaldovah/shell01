@@ -17,7 +17,7 @@ int main(void)
 	{
 		signal(SIGINT, custom_signal_handler);
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, PROMPT, _strlen(PROMPT) + 1);
+			write(STDOUT_FILENO, "shell$ ", 7);
 		line_length = getline(&input_lne, &ln_sze, stdin);
 		if (line_length < 0)
 		{

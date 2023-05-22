@@ -8,26 +8,24 @@
   * Return: Concatenated names
   */
 
-char *concatenate_path(const char *dir_path, const char *file_name)
+char *concatenate_path(char *dir_path, char *file_name)
 {
-    size_t file_name_len = 0, dir_path_len = 0, new_size = 0;
-    char *result = NULL;
+    int file_name_len = 0, dir_path_len = 0, novo_size = 0;
 
     file_name_len = _strlen(file_name);
     dir_path_len = _strlen(dir_path);
-    new_size = dir_path_len + file_name_len + 2;
-    result = malloc(sizeof(char) * new_size);
+    novo_size = sizeof(char) * (dir_path_len + file_name_len + 2);
+    dir_path = _realloc(dir_path, (dir_path_len + 1), novo_size);
 
-    if (!result)
+    if (!dir_path)
     {
-        return NULL;
+        return (NULL);
     }
 
-    strcpy(result, dir_path);
-    _strcat(result, "/");
-    _strcat(result, file_name);
+    _strcat(dir_path, "/");
+    _strcat(dir_path, file_name);
 
-    return result;
+    return (dir_path);
 }
 
 /**
@@ -37,9 +35,9 @@ char *concatenate_path(const char *dir_path, const char *file_name)
   * Return: Path name or NULL
   */
 
-char *lookup_path(const char *command_name)
+char *lookup_path(char *command_name)
 {
-    const char *environ_path = NULL;
+    char *environ_path = NULL;
     char **path_tokens = NULL;
     int a = 0, num_delims = 0;
     struct stat st;
@@ -48,43 +46,24 @@ char *lookup_path(const char *command_name)
     {
         if (stat(command_name, &st) != 0 && command_name[0] != '/')
         {
-            environ_path = getenv("PATH");
+            environ_path = custom_getenv("PATH");
             num_delims = count_chars(environ_path, ":") + 1;
             path_tokens = custom_tokenize(environ_path, ":", num_delims);
 
             while (path_tokens[a])
             {
-                char *concatenated_path = concatenate_path(path_tokens[a], command_name);
-
-                if (!concatenated_path)
-                {
-                    /* Handle memory allocation failure */
-                    free(path_tokens);
-                    return NULL;
-                }
-
-                if (stat(concatenated_path, &st) == 0)
-                {
-                    free((void *)command_name);
-                    command_name = strdup(concatenated_path);
-                    free(concatenated_path);
-                    free(path_tokens);
-                    return (char *)command_name;
-                }
-
-                free(concatenated_path);
-                a++;
+                    path_tokens[a] = concatenate_path(path_tokens[a], command_name);
+                    if (stat(path_tokens[a], &st) == 0)
+                    {
+                            return (strdup(path_tokens[a]));
+                    }
+                    a++;
             }
-
-            free(path_tokens);
         }
-
         if (stat(command_name, &st) == 0)
-            return (char *)command_name;
+                return (command_name);
     }
-
-    free((void *)command_name);
-    return NULL;
+    return (NULL);
 }
 
 /**
@@ -95,7 +74,7 @@ char *lookup_path(const char *command_name)
   * Return: ...
   */
 
-int execute_cmd(const char *command_name, char **arguments)
+int execute_cmd(char *command_name, char **arguments)
 {
     pid_t child_pid;
     int status;
@@ -104,7 +83,7 @@ int execute_cmd(const char *command_name, char **arguments)
     {
         case -1:
             perror("fork");
-            return -1;
+            return (-1);
         case 0:
             execve(command_name, arguments, environ);
             perror("execve"); /* Handle execve error */
@@ -112,8 +91,8 @@ int execute_cmd(const char *command_name, char **arguments)
         default:
             do {
                 waitpid(child_pid, &status, WUNTRACED);
-            } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+            } while (WIFEXITED(status) == 0 && WIFSIGNALED(status) == 0);
     }
 
-    return 0;
+    return (0);
 }

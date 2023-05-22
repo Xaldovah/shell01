@@ -12,18 +12,18 @@
 char *custom_getenv(const char *var_name)
 {
 	int b = 0;
-	char *env_var = NULL;
+	char *environ_variable = NULL;
 
 	while (environ[b])
 	{
 		if (_strncmp(var_name, environ[b], _strlen(var_name)) == 0)
 		{
-			env_var = strdup(environ[b]);
-			while (*env_var != '=')
-				env_var++;
+			environ_variable = strdup(environ[b]);
+			while (*environ_variable != '=')
+				environ_variable++;
 
-			++env_var;
-			return (env_var);
+			++environ_variable;
+			return (environ_variable);
 		}
 		b++;
 	}

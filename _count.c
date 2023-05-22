@@ -34,7 +34,7 @@ int count_words(char *input)
   *
   * Return: Number of delimiters found
   */
-int count_chars(const char *input, const char *delimiters)
+int count_chars(char *input, char *delimiters)
 {
 	int a = 0, b = 0, char_count = 0;
 

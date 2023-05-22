@@ -6,22 +6,15 @@
   *
   * Return: string sin \n
   */
-char *rem_newline_char(const char *str)
+char *rem_newline_char(char *str)
 {
-    char *res;
-    size_t len = strlen(str);
+    int a = 0;
 
-    if (len == 0)
-        return NULL;
-
-    res = malloc((len + 1) * sizeof(char));
-    if (res == NULL)
-        return NULL;
-
-    strncpy(res, str, len);
-    res[len - 1] = '\0';
-
-    free(res);
-
-    return (res);
+    while(str[a])
+    {
+	    if (str[a] == '\n')
+		    str[a] = '\0';
+	    a++;
+    }
+    return (str);
 }
