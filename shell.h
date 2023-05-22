@@ -10,8 +10,9 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <ctype.h>
+#include <limits.h>
 
-#define MAX_INPUT 1024
+#define MAXIMUM_INPUT 1024
 #define PROMPT "shell$ "
 #define MAX_ARGS 64
 #define MAX_PATHS 64
@@ -45,5 +46,12 @@ void prt_environ(void);
 char *concatenate_path(char *dir_path, char *file_name);
 char *lookup_path(char *command_name);
 int execute_cmd(char *command_name, char **arguments);
+void execute_exit(char **tokens, char *ln);
+void execute_cd(char **tokens);
+void execute_env(void);
+void execute_echo(char **tokens);
+void execute_setenv(char **tokens);
+void execute_unsetenv(char **tokens);
+void free_tokens(char **tokens);
 
 #endif

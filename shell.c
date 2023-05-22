@@ -9,7 +9,7 @@
 int main(void)
 {
 	char *input_lne = NULL, **tokens = NULL;
-	int i, word_len = 0, exec_flag = 0;
+	int word_len = 0, exec_flag = 0;
 	size_t ln_sze = 0;
 	ssize_t line_length = 0;
 
@@ -43,14 +43,8 @@ int main(void)
 					perror("./shell");
 				}
 			}
-			for (i = 0; i < word_len; i++)
-			{
-				free(tokens[i]);
-			}
-			free(tokens);
 		}
 	}
-
 	free(input_lne);
 	return (0);
 }
