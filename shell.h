@@ -20,6 +20,7 @@
 #define BUFFER_SIZE 1024
 
 extern char **environ;
+extern volatile sig_atomic_t sigint_received;
 struct stat buffer;
 
 /* Function prototypes */
@@ -53,5 +54,6 @@ void execute_echo(char **tokens);
 void execute_setenv(char **tokens);
 void execute_unsetenv(char **tokens);
 void free_tokens(char **tokens);
+void sigint_handler(int signum);
 
 #endif

@@ -13,6 +13,8 @@
 void custom_signal_handler(int signal_iden)
 {
 	if (signal_iden == SIGINT)
-		write(STDOUT_FILENO, "\nshell$ ", 8);
+	{
+		write(STDOUT_FILENO, "\nshell$ ", 9);
+		fflush(stdout);
+	}
 }
-

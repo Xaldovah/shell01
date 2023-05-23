@@ -13,7 +13,9 @@ int main(void)
 	size_t ln_sze = 0;
 	ssize_t line_length = 0;
 
-	while (line_length >= 0)
+	signal(SIGINT, sigint_handler);
+
+	while (line_length >= 0 && !sigint_received)
 	{
 		signal(SIGINT, custom_signal_handler);
 		if (isatty(STDIN_FILENO))
