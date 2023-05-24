@@ -19,12 +19,12 @@ char **custom_tokenize(char *str, char *delimiter, int count)
         return (NULL);
     }
     str = rem_newline_char(str);
-    temp_str = strdup(str);
+    temp_str = _strdup(str);
     current_token = strtok(temp_str, delimiter);
 
     while (current_token)
     {
-        token_array[a] = strdup(current_token);
+        token_array[a] = _strdup(current_token);
         current_token = strtok(NULL, delimiter);
         a++;
     }

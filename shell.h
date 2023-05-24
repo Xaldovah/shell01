@@ -54,6 +54,6 @@ void execute_echo(char **tokens);
 void execute_setenv(char **tokens);
 void execute_unsetenv(char **tokens);
 void free_tokens(char **tokens);
-void sigint_handler(int signum);
+char *_strdup(char *s);
 
 #endif

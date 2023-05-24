@@ -41,7 +41,7 @@ int builtin(char **tokens, char *ln)
         }
         a++;
     }
-    return 0;
+    return (0);
 }
 
 /**
@@ -70,9 +70,9 @@ void execute_cd(char **tokens)
     const char *dir;
     char cwd[1024];
 
-    if (tokens[1] == NULL || strcmp(tokens[1], "-") == 0)
+    if (tokens[1] == NULL || _strcmp(tokens[1], "-") == 0)
     {
-        dir = tokens[1] == NULL ? getenv("HOME") : getenv("OLDPWD");
+        dir = tokens[1] == NULL ? custom_getenv("HOME") : custom_getenv("OLDPWD");
         if (dir == NULL)
         {
             _puts(tokens[1] == NULL ? "cd: HOME not set" : "cd: OLDPWD not set");
@@ -95,7 +95,7 @@ void execute_cd(char **tokens)
     if (getcwd(cwd, sizeof(cwd)) != NULL)
     {
         setenv("PWD", cwd, 1);
-        setenv("OLDPWD", getenv("PWD"), 1);
+        setenv("OLDPWD", custom_getenv("PWD"), 1);
     }
     else
     {
@@ -106,6 +106,8 @@ void execute_cd(char **tokens)
 
 /**
  * execute_env - Executes the env command
+ *
+ * Return: None
  */
 void execute_env(void)
 {
@@ -131,71 +133,11 @@ void execute_echo(char **tokens)
     {
         _puts(tokens[i]);
         if (tokens[i + 1] != NULL)
-            _putchar(' ');
+	{
+		_putchar(' ');
+	}
         i++;
     }
     _putchar('\n');
     free_tokens(tokens);
-}
-
-/**
- * execute_setenv - Executes the setenv command
- * @tokens: Array of strings containing the tokens
- */
-void execute_setenv(char **tokens)
-{
-    if (tokens[1] == NULL || tokens[2] == NULL)
-    {
-        _puts("setenv: missing arguments");
-        free_tokens(tokens);
-        return;
-    }
-
-    if (setenv(tokens[1], tokens[2], 1) != 0)
-    {
-        _puts("setenv: failed to set environment variable");
-        free_tokens(tokens);
-        return;
-    }
-
-    free_tokens(tokens);
-}
-
-/**
- * execute_unsetenv - Executes the unsetenv command
- * @tokens: Array of strings containing the tokens
- */
-void execute_unsetenv(char **tokens)
-{
-    if (tokens[1] == NULL)
-    {
-        _puts("unsetenv: missing argument");
-        free_tokens(tokens);
-        return;
-    }
-
-    if (unsetenv(tokens[1]) != 0)
-    {
-        _puts("unsetenv: failed to unset environment variable");
-        free_tokens(tokens);
-        return;
-    }
-
-    free_tokens(tokens);
-}
-
-/**
- * free_tokens - Frees the memory allocated for tokens
- * @tokens: Array of strings containing the tokens
- */
-void free_tokens(char **tokens)
-{
-    int i = 0;
-
-    while (tokens[i])
-    {
-        free(tokens[i]);
-        i++;
-    }
-    free(tokens);
 }

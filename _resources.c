@@ -35,8 +35,9 @@ int _strlen(const char *str)
 	int a = 0;
 
 	while (str[a])
+	{
 		a++;
-
+	}
 	return (a);
 }
 
@@ -55,10 +56,13 @@ int _strcmp(char *s1, char *s2)
         length_s2 = _strlen(s2);
 
         if (length_s1 <= length_s2)
-                limit = length_s1;
+	{
+		limit = length_s1;
+	}
         else
-                limit = length_s2;
-
+	{
+		limit = length_s2;
+	}
         while (loc <= limit)
         {
                 if (s1[loc] == s2[loc])
@@ -91,21 +95,21 @@ int _atoi(char *str)
         while (str[a])
         {
                 if (str[a] == '-')
-                        sign = -1;
-
+		{
+			sign = -1;
+		}
                 while (str[a] >= '0' && str[a] <= '9')
                 {
                         digit_count = 1;
                         result = (result * 10) + (str[a] - '0');
                         a++;
                 }
-
                 if (digit_count == 1)
-                        break;
-
+		{
+			break;
+		}
                 a++;
         }
-
         result *= sign;
         return (result);
 }

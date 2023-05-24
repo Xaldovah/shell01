@@ -107,3 +107,34 @@ void *_realloc(void *pointer, unsigned int prev_size, unsigned int new_size)
 	free(pointer);
 	return (new_ptr);
 }
+
+/**
+  * _strdup - ...
+  * @str: ...
+  *
+  * Return: ...
+  */
+char *_strdup(char *s)
+{
+	int i = 0, length = 1;
+	char *dup_s;
+
+	if (s == NULL)
+	{
+		return (NULL);
+	}
+	length = _strlen(s);
+	dup_s = malloc((sizeof(char) * length) + 1);
+	if (dup_s == NULL)
+	{
+		return (NULL);
+	}
+	while (i < length)
+	{
+		dup_s[i] = s[i];
+		i++;
+	}
+
+	dup_s[i] = '\0';
+	return (dup_s);
+}

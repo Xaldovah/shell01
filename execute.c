@@ -55,14 +55,19 @@ char *lookup_path(char *command_name)
                     path_tokens[a] = concatenate_path(path_tokens[a], command_name);
                     if (stat(path_tokens[a], &st) == 0)
                     {
-                            return (strdup(path_tokens[a]));
+                            free(command_name);
+			    command_name = _strdup(path_tokens[a]);
+			    free(path_tokens);
+			    return (command_name);
                     }
                     a++;
             }
+	    free(path_tokens);
         }
         if (stat(command_name, &st) == 0)
                 return (command_name);
     }
+    free(command_name);
     return (NULL);
 }
 
@@ -86,7 +91,7 @@ int execute_cmd(char *command_name, char **arguments)
             return (-1);
         case 0:
             execve(command_name, arguments, environ);
-            perror("execve"); /* Handle execve error */
+            perror("execve");
             exit(EXIT_FAILURE); /* Terminate child process on error */
         default:
             do {

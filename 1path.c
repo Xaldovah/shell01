@@ -14,10 +14,14 @@ char *check_path(char *cmd)
 	struct stat buffer;
 
 	if (!path)
+	{
 		return (NULL);
-	path_copy = strdup(path);
+	}
+	path_copy = _strdup(path);
 	if (!path_copy)
+	{
 		return (NULL);
+	}
 	cmd_len = _strlen(cmd);
 	path_token = strtok(path_copy, ":");
 	while (path_token)
@@ -42,6 +46,8 @@ char *check_path(char *cmd)
 	}
 	free(path_copy);
 	if (stat(cmd, &buffer) == 0)
+	{
 		return (cmd);
+	}
 	return (NULL);
 }

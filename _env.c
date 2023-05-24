@@ -18,7 +18,9 @@ void prt_environ(void)
 			b++;
 		}
 		if (b != 0)
+		{
 			write(STDOUT_FILENO, "\n", 1);
+		}
 		a++;
 	}
 }

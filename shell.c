@@ -13,13 +13,13 @@ int main(void)
 	size_t ln_sze = 0;
 	ssize_t line_length = 0;
 
-	signal(SIGINT, sigint_handler);
-
-	while (line_length >= 0 && !sigint_received)
+	while (1)
 	{
 		signal(SIGINT, custom_signal_handler);
 		if (isatty(STDIN_FILENO))
+		{
 			write(STDOUT_FILENO, "shell$ ", 7);
+		}
 		line_length = getline(&input_lne, &ln_sze, stdin);
 		if (line_length < 0)
 		{
@@ -27,7 +27,6 @@ int main(void)
 				write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
-
 		word_len = count_words(input_lne);
 		if (input_lne[0] != '\n' && word_len > 0)
 		{
@@ -48,5 +47,6 @@ int main(void)
 		}
 	}
 	free(input_lne);
+	free(tokens);
 	return (0);
 }

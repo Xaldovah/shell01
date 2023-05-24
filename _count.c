@@ -14,16 +14,16 @@ int count_words(char *input)
 	while (input[a])
 	{
 		if (input[a] == ' ' || input[a] == '\n' || input[a] == '\t')
+		{
 			status = 0;
+		}
 		else if (status == 0)
 		{
 			status = 1;
 			word_count++;
 		}
-
 		a++;
 	}
-
 	return (word_count);
 }
 
@@ -44,11 +44,12 @@ int count_chars(char *input, char *delimiters)
 		while (input[b])
 		{
 			if (input[b] == delimiters[a])
+			{
 				char_count++;
+			}
 			b++;
 		}
 		a++;
 	}
-
 	return (char_count);
 }
