@@ -55,5 +55,7 @@ void execute_setenv(char **tokens);
 void execute_unsetenv(char **tokens);
 void free_tokens(char **tokens);
 char *_strdup(char *s);
+char *my_strtok(char *str, const char *delimiter);
+unsigned int check_char(char character, const char *str);
 
 #endif
